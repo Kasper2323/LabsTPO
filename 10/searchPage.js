@@ -12,28 +12,53 @@ class SearchPage {
         await this.driver.get(this.url);
     }
 
-    async searchFilm(filmName) {
-        console.log('Waiting for search input to be located...');
-        await this.driver.wait(until.elementLocated(this.searchInput), 10000);
-        console.log('Search input located.');
-    
+    async searchFilm(filmName, isFull) {
+
+
+        if(isFull){
+            await this._clickBoxRegionLink();
+            await this._clickMolodechnoLink();
+        }
+        
+        await this._waitForElement(this.searchInput);
+        await this._waitForElementVisible(this.searchInput);
+
         const searchInputElement = await this.driver.findElement(this.searchInput);
-        await this.driver.wait(until.elementIsVisible(searchInputElement), 10000);
-        console.log('Search input is visible.');
-    
         await searchInputElement.sendKeys(filmName, Key.RETURN);
-        console.log('Text entered in search input.');
-    
-        console.log('Waiting for search button to be located...');
-        await this.driver.wait(until.elementLocated(this.searchButton), 10000);
-        console.log('Search button located.');
-    
+
+        await this._waitForElement(this.searchButton);
+        await this._waitForElementVisible(this.searchButton);
+
         const searchButtonElement = await this.driver.findElement(this.searchButton);
-        await this.driver.wait(until.elementIsVisible(searchButtonElement), 10000);
-        console.log('Search button is visible.');
-    
         await searchButtonElement.click();
-        console.log('Search button clicked.');
+
+    }
+
+    async _waitForElement(locator) {
+        console.log(`Waiting for element located by ${locator.toString()}...`);
+        await this.driver.wait(until.elementLocated(locator), 10000);
+        console.log('Element located.');
+    }
+
+    async _waitForElementVisible(locator) {
+        console.log(`Waiting for element ${locator.toString()} to be visible...`);
+        const element = await this.driver.findElement(locator);
+        await this.driver.wait(until.elementIsVisible(element), 10000);
+        console.log('Element is visible.');
+    }
+
+    async _clickBoxRegionLink() {
+        console.log('Clicking on the box-region link...');
+        const boxRegionLink = await this.driver.findElement(By.xpath('//a[contains(@class, "box-region")]'));
+        await boxRegionLink.click();
+        console.log('Box-region link clicked.');
+    }
+
+    async _clickMolodechnoLink() {
+        console.log('Clicking on the link with text "Молодечно"...');
+        const molodechnoLink = await this.driver.findElement(By.xpath('//a[text()="Молодечно"]'));
+        await molodechnoLink.click();
+        console.log('Link with text "Молодечно" clicked.');
     }
 }
 
