@@ -54,13 +54,13 @@ class ProfilePage {
         logger.info('User profile edited successfully.');
     }
 
-    async _waitForElement(locator, timeout = 10000) {
+    async _waitForElement(locator, timeout = 2000) {
         logger.info(`Waiting for element located by ${locator.toString()}...`);
         await this.driver.wait(until.elementLocated(locator), timeout);
         logger.info('Element located.');
     }
 
-    async _waitForElementVisible(locator, timeout = 10000) {
+    async _waitForElementVisible(locator, timeout = 2000) {
         logger.info(`Waiting for element ${locator.toString()} to be visible...`);
         const element = await this.driver.findElement(locator);
         await this.driver.wait(until.elementIsVisible(element), timeout);

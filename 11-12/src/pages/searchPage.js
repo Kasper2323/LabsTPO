@@ -38,14 +38,14 @@ class SearchPage {
 
     async _waitForElement(locator) {
         logger.info(`Waiting for element located by ${locator.toString()}...`);
-        await this.driver.wait(until.elementLocated(locator), 10000);
+        await this.driver.wait(until.elementLocated(locator), 2000);
         logger.info('Element located.');
     }
 
     async _waitForElementVisible(locator) {
         logger.info(`Waiting for element ${locator.toString()} to be visible...`);
         const element = await this.driver.findElement(locator);
-        await this.driver.wait(until.elementIsVisible(element), 10000);
+        await this.driver.wait(until.elementIsVisible(element), 2000);
         logger.info('Element is visible.');
     }
 

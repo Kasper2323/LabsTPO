@@ -1,29 +1,23 @@
 const DriverManager = require('../utils/driverManager');
-const ProfilePage = require('../pages/profilePage');
 const AuthPage = require('../pages/authPage');
 const logger = require('../utils/logger');
 
-(async function runTest() {
+async function loginTest() {
     const driver = await DriverManager.getDriver('chrome');
 
     try {
-        const profilePage = new ProfilePage(driver);
-
         const authPage = new AuthPage(driver);
-
         await authPage.open();
-
         await authPage.login('kasperartom@gmail.com', '102030ttt');
-
         logger.info('Login test completed successfully.');
-
-        await profilePage.editProfile('kasperartom1@gmail.com');
-
-        logger.info('Profile edit test completed successfully.');
+        return 'Login test passed';
     } catch (error) {
-        logger.error(`Profile edit test failed: ${error.message}`);
+        logger.error(`Login test failed: ${error.message}`);
+        return `Login test failed: ${error.message}`;
     } finally {
         await driver.quit();
         logger.info('Browser closed.');
     }
-})();
+}
+
+module.exports = loginTest;

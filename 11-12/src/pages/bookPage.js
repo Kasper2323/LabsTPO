@@ -42,7 +42,7 @@ class BookPage {
         logger.info('Ticket booked successfully.');
     }
 
-    async _waitForElement(locator, timeout = 3000) {
+    async _waitForElement(locator, timeout = 2000) {
         logger.info(`Waiting for element located by ${locator.toString()}...`);
         await this.driver.wait(until.elementLocated(locator), timeout);
         logger.info('Element located.');
