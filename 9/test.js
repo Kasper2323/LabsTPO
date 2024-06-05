@@ -11,10 +11,10 @@ async function runTest() {
         await driver.get('http://kinoteatr.megamag.by/');
 
         // Находим поле ввода для поиска фильма и вводим текст
-        await driver.findElement(By.id('newsdesk_keyword')).sendKeys('Время вернуться', Key.RETURN);
+        await driver.findElement(By.xpath('//input[@id="newsdesk_keyword"]')).sendKeys('Время вернуться', Key.RETURN);
 
-        // Находим элемент с классом news_img и кликаем на него
-        await driver.findElement(By.css('.btn-green-small')).click();
+        // Находим элемент с классом btn-green-small и кликаем на него
+        await driver.findElement(By.xpath('//a[contains(@class, "btn-green-small")]')).click();
     } finally {
         // Закрываем браузер после выполнения тест-кейса
         await driver.quit();
